@@ -132,7 +132,7 @@ public class MainDialog extends javax.swing.JDialog {
 
         rtn[0] = ip0.duplicate();
         rtn[0].setTitle("Total");
-//        ip0.show();
+        //        ip0.show();
 
         int[] pixels = (int[]) ip0.getProcessor().getPixels();
 
@@ -163,8 +163,8 @@ public class MainDialog extends javax.swing.JDialog {
         rightIP.setTitle("Right");
         leftIP.setTitle("Left");
 
-//        rightIP.show();
-//        leftIP.show();
+        //        rightIP.show();
+        //        leftIP.show();
         ImageProcessor topIPR = new ColorProcessor(ip0.getWidth(), ip0.getHeight() / 2);
         ImagePlus topIP = new ImagePlus("Top", topIPR);
 
@@ -188,9 +188,9 @@ public class MainDialog extends javax.swing.JDialog {
         topIP.setTitle("Top");
         bottomIP.setTitle("Bottom");
 
-//        topIP.show();
-//        bottomIP.show();
-//        rtn[0] = ip0;
+        //        topIP.show();
+        //        bottomIP.show();
+        //        rtn[0] = ip0;
         rtn[1] = topIP;
         rtn[2] = bottomIP;
         rtn[3] = leftIP;
@@ -200,7 +200,7 @@ public class MainDialog extends javax.swing.JDialog {
 
     private void Analyze(File inputFile, PrintWriter printWriter) {
 
-// line #2 open file        
+        // line #2 open file        
         ImagePlus[] images = splitImage(inputFile);
 
         System.out.println("input file name " + inputFile.getName());
@@ -209,40 +209,40 @@ public class MainDialog extends javax.swing.JDialog {
 
         System.err.println(inputFile.getPath());
 
-//// line #2 open image file        
-//        ImagePlus ip0 = IJ.openImage(inputFile.getAbsolutePath());
-//        ip0.show(inputFile.getAbsolutePath());
+        //// line #2 open image file        
+        //        ImagePlus ip0 = IJ.openImage(inputFile.getAbsolutePath());
+        //        ip0.show(inputFile.getAbsolutePath());
         for (ImagePlus ip : images) {
             
             saveIntermediateImagePlus(ip, inputFile);
-// line #3 go to the image and duplicate        
+            // line #3 go to the image and duplicate        
             ImagePlus ip1 = ip.duplicate();
 
-// line #4 smooth
+            // line #4 smooth
             ip1.getProcessor().smooth();
 
-// line #5 apply color threshold            
+            // line #5 apply color threshold            
             colorThresholder.setParams(0, 211, 118, 255, 0, 255, colorThresholder.YUV, colorThresholder.WHITE);
-//                colorThresholder.setParams(0, 255, 0, 255, 0, 231, colorThresholder.HSB, colorThresholder.WHITE);
+            //                colorThresholder.setParams(0, 255, 0, 255, 0, 231, colorThresholder.HSB, colorThresholder.WHITE);
 
             colorThresholder.setIP(ip1);
 
             colorThresholder.apply(ip1);
-// line #6 sharpen -- removed per instructions
-//            ip1.getProcessor().sharpen();
+            // line #6 sharpen -- removed per instructions
+            //            ip1.getProcessor().sharpen();
             ip1.setTitle(inputFile.getName() + " applied");
 
-//// line #6 replacement -- apply 2nd colorthreshold -- not included while trying to match to paper            
-//            colorThresholder.setParams(0, 211, 118, 255, 0, 255, colorThresholder.YUV, colorThresholder.WHITE);
-////                colorThresholder.setParams(0, 255, 0, 255, 0, 231, colorThresholder.HSB, colorThresholder.WHITE);
-//
-//            colorThresholder.setIP(ip1);
-//
-//            colorThresholder.apply(ip1);
+            //// line #6 replacement -- apply 2nd colorthreshold -- not included while trying to match to paper            
+            //            colorThresholder.setParams(0, 211, 118, 255, 0, 255, colorThresholder.YUV, colorThresholder.WHITE);
+            ////                colorThresholder.setParams(0, 255, 0, 255, 0, 231, colorThresholder.HSB, colorThresholder.WHITE);
+            //
+            //            colorThresholder.setIP(ip1);
+            //
+            //            colorThresholder.apply(ip1);
 
             ImagePlus ip2 = ip1.duplicate();
 
-// line #7 make b&2
+            // line #7 make b&2
             IJ.run(ip2, "8-bit", "");
 
             ip2.setTitle("8-bit");
@@ -250,17 +250,17 @@ public class MainDialog extends javax.swing.JDialog {
 
             ImagePlus ip3 = ip2.duplicate();
 
-// line #8 threshold b&w image            
-//        ip3.getProcessor().setThreshold(0, 182);
+            // line #8 threshold b&w image            
+            //        ip3.getProcessor().setThreshold(0, 182);
             ip3.getProcessor().threshold(182);
 
             ip3.setTitle("8-bit threshold");
             ip3.show();
             
-// reset results table to start fresh for each analysis            
+            // reset results table to start fresh for each analysis            
             ResultsTable.getResultsTable().reset();
 
-// line #9 analyze particles            
+            // line #9 analyze particles            
             IJ.run(ip3, "Analyze Particles...", "size=0-10000 circularity=0.1-1.00 bounding rectanble Area Mean Min Max");
 
             ResultsTable rs1 = ResultsTable.getResultsTable();
@@ -273,7 +273,7 @@ public class MainDialog extends javax.swing.JDialog {
 
             makeOutputFile(ip.getTitle(), colorProcessor, printWriter);
             
-//            break;
+            //            break;
         }
     }
     
@@ -288,9 +288,9 @@ public class MainDialog extends javax.swing.JDialog {
 
     private void makeOutputFile(String title, ColorProcessor colorProcessor, PrintWriter pw) {
         ResultsTable rs = ResultsTable.getResultsTable();
-//        for (int idx = 0; idx < rs.getCounter(); idx++) {
-//            pw.println(rs.getRowAsString(idx));
-//        }
+        // for (int idx = 0; idx < rs.getCounter(); idx++) {
+        //     pw.println(rs.getRowAsString(idx));
+        // }
         double[] area = rs.getColumn("Area");
         System.out.println("break");
 
@@ -299,9 +299,9 @@ public class MainDialog extends javax.swing.JDialog {
         pw.printf("%s  mean %6.2f std %6.2f count %d dim %d x %d ", title, ds.getMean(), 
                 ds.getStandardDeviation(), ds.getN(), colorProcessor.getWidth(), colorProcessor.getHeight());
 
-//        DescriptiveStatistics redDS = new DescriptiveStatistics();
-//        DescriptiveStatistics greenDS = new DescriptiveStatistics();
-//        DescriptiveStatistics blueDS = new DescriptiveStatistics();
+        // DescriptiveStatistics redDS = new DescriptiveStatistics();
+        // DescriptiveStatistics greenDS = new DescriptiveStatistics();
+        // DescriptiveStatistics blueDS = new DescriptiveStatistics();
         ByteProcessor redProcessor = colorProcessor.getChannel(1, null);
         int[] redHistorgram = redProcessor.getHistogram();
         ByteProcessor greenProcessor = colorProcessor.getChannel(2, null);
@@ -309,17 +309,17 @@ public class MainDialog extends javax.swing.JDialog {
         ByteProcessor blueProcessor = colorProcessor.getChannel(3, null);
         int[] blueHistorgram = blueProcessor.getHistogram();
 
-//        for (int idx = 0; idx < redHistorgram.length; idx++) {
-//            redDS.addValue(redHistorgram[idx] * idx);
-//        }
-//        
-//        for (int idx = 0; idx < greenHistorgram.length; idx++) {
-//            greenDS.addValue(greenHistorgram[idx]);
-//        }
-//        
-//        for (int idx = 0; idx < blueHistorgram.length; idx++) {
-//            blueDS.addValue(blueHistorgram[idx]);
-//        }
+        // for (int idx = 0; idx < redHistorgram.length; idx++) {
+        //     redDS.addValue(redHistorgram[idx] * idx);
+        // }
+        
+        // for (int idx = 0; idx < greenHistorgram.length; idx++) {
+        //     greenDS.addValue(greenHistorgram[idx]);
+        // }
+        
+        // for (int idx = 0; idx < blueHistorgram.length; idx++) {
+        //     blueDS.addValue(blueHistorgram[idx]);
+        // }
         double[] redStats = calcHistStats(redHistorgram);
         double[] greenStats = calcHistStats(greenHistorgram);
         double[] blueStats = calcHistStats(blueHistorgram);
@@ -391,7 +391,7 @@ public class MainDialog extends javax.swing.JDialog {
 
         if (test) {
             //C:\Users\wjrfo\Documents\2018 June flour pics
-//            String fileName = "C:\\Users\\wjrfo\\Documents\\2018 June flour pics\\testPanel.bmp";
+            // String fileName = "C:\\Users\\wjrfo\\Documents\\2018 June flour pics\\testPanel.bmp";
             String fileName = "C:\\Users\\wjrfo\\Documents\\2018 June flour pics\\FLOUR\\sm-5008_1200.bmp";
             MainDialog md = new MainDialog();
             File outFile = new File(new File(fileName).getParent(), new SimpleDateFormat("yyyy-MM-dd-hh-mm-ss").format(new Date()));
