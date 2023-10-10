@@ -1,4 +1,3 @@
-package gov.usda.ars.spieru.flour;
 
 import ij.*;
 import ij.process.*;
