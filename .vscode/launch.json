@@ -1,0 +1,35 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Current File",
+            "request": "launch",
+            "mainClass": "MainDialog"
+        },
+        {
+            "type": "java",
+            "name": "ColorThresholder",
+            "request": "launch",
+            "mainClass": "ColorThresholder",
+            "projectName": "usda-flour-separ_c772961b"
+        },
+        {
+            "type": "java",
+            "name": "MainDialog",
+            "request": "launch",
+            "mainClass": "MainDialog",
+            "projectName": "usda-flour-separ_c772961b"
+        },
+        {
+            "type": "java",
+            "name": "Smut",
+            "request": "launch",
+            "mainClass": "Smut",
+            "projectName": "usda-flour-separ_c772961b"
+        }
+    ]
+}

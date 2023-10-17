@@ -97,9 +97,6 @@ public class MainDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_jBExitActionPerformed
 
     private void jBSelectFilesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSelectFilesActionPerformed
-
-        
-
         if (fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
             fils = fileChooser.getSelectedFiles();
             File outFile = new File(fils[0].getPath(), new SimpleDateFormat("MM-dd-yyyy").format(new Date()));
