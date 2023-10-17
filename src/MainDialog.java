@@ -109,9 +109,11 @@ public class MainDialog extends javax.swing.JDialog {
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(MainDialog.class.getName()).log(Level.SEVERE, null, ex);
             } finally {
-                outputPrinter.close();
-            }
-        }
+                if (outputPrinter != null) {
+                    outputPrinter.close();
+                }//end if output printer is actually initializes
+            }//end finally closing output printer
+        }//end if file was selected
 
     }//GEN-LAST:event_jBSelectFilesActionPerformed
 
@@ -219,7 +221,7 @@ public class MainDialog extends javax.swing.JDialog {
             ip1.getProcessor().smooth();
 
             // line #5 apply color threshold            
-            colorThresholder.setParams(0, 211, 118, 255, 0, 255, colorThresholder.YUV, colorThresholder.WHITE);
+            colorThresholder.setParams(0, 211, 118, 255, 0, 255, ColorThresholder.YUV, ColorThresholder.WHITE);
             //                colorThresholder.setParams(0, 255, 0, 255, 0, 231, colorThresholder.HSB, colorThresholder.WHITE);
 
             colorThresholder.setIP(ip1);
