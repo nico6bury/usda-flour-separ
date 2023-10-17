@@ -254,8 +254,8 @@ public class ColorThresholder2 extends PlugInFrame implements PlugIn, Measuremen
         c.gridx = 0;
         c.gridy = y;
         c.gridwidth = 1;
-        c.fill = c.BOTH;
-        c.anchor = c.CENTER;
+        c.fill = GridBagConstraints.BOTH;
+        c.anchor = GridBagConstraints.CENTER;
         c.insets = new Insets(0, 5, 0, 0);
         add(plot, c);
 
@@ -276,7 +276,7 @@ public class ColorThresholder2 extends PlugInFrame implements PlugIn, Measuremen
         c.gridy = y++;
         c.gridwidth = 1;
         c.weightx = IJ.isMacintosh() ? 90 : 100;
-        c.fill = c.HORIZONTAL;
+        c.fill = GridBagConstraints.HORIZONTAL;
         c.insets = new Insets(5, 5, 0, 0);
 
         add(minSlider, c);
@@ -327,8 +327,8 @@ public class ColorThresholder2 extends PlugInFrame implements PlugIn, Measuremen
         c.gridx = 0;
         c.gridy = y;
         c.gridwidth = 1;
-        c.fill = c.BOTH;
-        c.anchor = c.CENTER;
+        c.fill = GridBagConstraints.BOTH;
+        c.anchor = GridBagConstraints.CENTER;
         c.insets = new Insets(0, 5, 0, 0);
         add(splot, c);
 
@@ -397,8 +397,8 @@ public class ColorThresholder2 extends PlugInFrame implements PlugIn, Measuremen
         c.gridx = 0;
         c.gridwidth = 1;
         c.gridy = y;
-        c.fill = c.BOTH;
-        c.anchor = c.CENTER;
+        c.fill = GridBagConstraints.BOTH;
+        c.anchor = GridBagConstraints.CENTER;
         c.insets = new Insets(0, 5, 0, 0);
         add(bplot, c);
 
@@ -419,7 +419,7 @@ public class ColorThresholder2 extends PlugInFrame implements PlugIn, Measuremen
         c.gridy = y++;
         c.gridwidth = 1;
         c.weightx = IJ.isMacintosh() ? 90 : 100;
-        c.fill = c.HORIZONTAL;
+        c.fill = GridBagConstraints.HORIZONTAL;
         c.insets = new Insets(5, 5, 0, 0);
         add(minSlider3, c);
         minSlider3.addAdjustmentListener(this);
