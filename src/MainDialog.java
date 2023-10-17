@@ -4,6 +4,9 @@ import ij.measure.ResultsTable;
 import ij.process.ByteProcessor;
 import ij.process.ColorProcessor;
 import ij.process.ImageProcessor;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -95,13 +98,10 @@ public class MainDialog extends javax.swing.JDialog {
 
     private void jBSelectFilesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSelectFilesActionPerformed
 
-        JFileChooser file = new JFileChooser();
-        file.setMultiSelectionEnabled(true);
-        file.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-        file.setFileHidingEnabled(false);
+        
 
-        if (file.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-            fils = file.getSelectedFiles();
+        if (fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+            fils = fileChooser.getSelectedFiles();
             File outFile = new File(fils[0].getPath(), new SimpleDateFormat("MM-dd-yyyy").format(new Date()));
             PrintWriter outputPrinter = null;
             try {
@@ -360,7 +360,18 @@ public class MainDialog extends javax.swing.JDialog {
     private File[] fils;
     private ArrayList<Analyze> imageProcessors = new ArrayList<>();
 
-    private static boolean test = true;
+    private static boolean test = false;
+
+    private static JFileChooser fileChooser = new JFileChooser();
+    private static ActionListener fileChooserListener = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            System.out.println(e.getActionCommand());
+            if (e.getActionCommand() == "ApproveSelection") {
+                // TODO: something with the file selection
+            }//end if file was selected
+        }//end actionPerformed(e)
+    };
 
     /**
      * @param args the command line arguments
@@ -388,6 +399,11 @@ public class MainDialog extends javax.swing.JDialog {
             java.util.logging.Logger.getLogger(MainDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        // set up action listener for file chooser
+        fileChooser.addActionListener(fileChooserListener);
+        fileChooser.setMultiSelectionEnabled(true);
+        fileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+        fileChooser.setFileHidingEnabled(false);
 
         if (test) {
             //C:\Users\wjrfo\Documents\2018 June flour pics
