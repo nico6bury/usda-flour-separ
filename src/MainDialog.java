@@ -11,6 +11,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
@@ -99,7 +101,8 @@ public class MainDialog extends javax.swing.JDialog {
     private void jBSelectFilesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSelectFilesActionPerformed
         if (fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
             fils = fileChooser.getSelectedFiles();
-            File outFile = new File(fils[0].getPath(), new SimpleDateFormat("MM-dd-yyyy").format(new Date()));
+            //File outFile = new File(fils[0].getPath(), new SimpleDateFormat("MM-dd-yyyy").format(new Date()));
+            File outFile = reformatOutputFile(fileChooser.getSelectedFile().getAbsolutePath(), true);
             PrintWriter outputPrinter = null;
             try {
                 outputPrinter = new PrintWriter(outFile);
@@ -116,6 +119,36 @@ public class MainDialog extends javax.swing.JDialog {
         }//end if file was selected
 
     }//GEN-LAST:event_jBSelectFilesActionPerformed
+
+    public static String OUTPUT_FOLDER_NAME = "output-folder";
+
+    /**
+     * This method reformats a given path in order to change the extension, put it into a new directory in the location of the original file, and name that directory based on the current date.
+     * @param outputFilePath The path you want to format
+     * @param ensureDirectoryExists If this is true, then this method will create a new directory if it doesn't already exist.
+     * @return Returns a resulting path as a String
+     */
+    public static File reformatOutputFile(String outputFilePath, boolean ensureDirectoryExists) {
+        // figure out the path of the output directory
+        File outputFile = new File(outputFilePath);
+        File parentDirectory = outputFile.getParentFile();
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        DateTimeFormatter dir_formatter = DateTimeFormatter.ofPattern("yyyy-MM-");
+        DateTimeFormatter file_formatter = DateTimeFormatter.ofPattern(";d-H-m-s");
+        File newDirectory = new File(parentDirectory.getAbsolutePath() + File.separator + currentDateTime.format(dir_formatter) + OUTPUT_FOLDER_NAME);
+        // create the directory if it doesn't exist
+        if (ensureDirectoryExists && !newDirectory.exists()) {
+            newDirectory.mkdir();
+        }//end if new directory needs to be created
+        // create the resulting path of the output file
+        String priorFileName = outputFile.getName();
+        String newExtension = ".OUT";
+        String current_time_stamp = currentDateTime.format(file_formatter);
+        String newFileName = priorFileName.substring(0, priorFileName.lastIndexOf(".")) + current_time_stamp + newExtension;
+        outputFile = new File(newDirectory.getAbsolutePath() + File.separator + newFileName);
+
+        return outputFile;
+    }//end reformatOutputFile(outputFilePath)
 
     /**
      * splits input file into 5 parts: all, left, right, top, bottom
