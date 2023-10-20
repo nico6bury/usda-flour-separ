@@ -266,7 +266,7 @@ public class MainDialog extends javax.swing.JDialog {
 
             //// line #6 replacement -- apply 2nd colorthreshold -- not included while trying to match to paper            
             //            colorThresholder.setParams(0, 211, 118, 255, 0, 255, colorThresholder.YUV, colorThresholder.WHITE);
-            ////                colorThresholder.setParams(0, 255, 0, 255, 0, 231, colorThresholder.HSB, colorThresholder.WHITE);
+            //         // colorThresholder.setParams(0, 255, 0, 255, 0, 231, colorThresholder.HSB, colorThresholder.WHITE);
             //
             //            colorThresholder.setIP(ip1);
             //
